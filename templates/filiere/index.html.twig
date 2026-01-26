@@ -1,0 +1,59 @@
+{# 1. L'HÉRITAGE #}
+{# Cette ligne dit : "Ne réinvente pas la roue, prends la structure principale (base.html.twig)
+   qui contient déjà le <head>, les scripts CSS, le menu, etc." #}
+{% extends 'base.html.twig' %}
+
+{# 2. LE TITRE DE L'ONGLET #}
+{# On injecte "Filiere index" dans le bloc "title" défini dans base.html.twig #}
+{% block title %}Filiere index{% endblock %}
+
+{# 3. LE CORPS DE LA PAGE #}
+{# Tout ce qu'on écrit ici va s'insérer au milieu de la page principale #}
+{% block body %}
+    <h1>Filiere index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th> <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {# 4. LA BOUCLE (Le cœur du système) #}
+        {# "Pour chaque élément trouvé dans la variable 'filieres', appelle-le 'filiere' et fais ceci..." #}
+        {% for filiere in filieres %}
+            <tr>
+                {# 5. L'AFFICHAGE DE VARIABLE #}
+                {# Les doubles accolades {{ }} servent à AFFICHER du contenu #}
+                <td>{{ filiere.id }}</td>  {# Affiche l'ID (ex: 1) #}
+                <td>{{ filiere.nom }}</td> {# Affiche le Nom (ex: Informatique) #}
+
+                <td>
+                    {# 6. LA GÉNÉRATION DE LIENS (Le GPS) #}
+                    {# La fonction path() crée l'URL automatiquement.
+                       On lui donne le NOM de la route ('app_filiere_show')
+                       et l'ID de la ligne concernée. #}
+                    <a href="{{ path('app_filiere_show', {'id': filiere.id}) }}">show</a>
+                    <a href="{{ path('app_filiere_edit', {'id': filiere.id}) }}">edit</a>
+                </td>
+            </tr>
+
+        {# 7. LA GESTION DU VIDE #}
+        {# Si la boucle ne trouve RIEN dans la base de données, elle exécute cette partie #}
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %} {# Fin de la boucle #}
+
+        </tbody>
+    </table>
+
+    {# Lien vers la page de création #}
+    <a href="{{ path('app_filiere_new') }}">Create new</a>
+    <br><br> <a href="{{ path('app_home') }}" style="background-color: #ddd; padding: 10px; text-decoration: none; border-radius: 5px; color: black;">
+        Accueil
+    </a>
+{% endblock %}
