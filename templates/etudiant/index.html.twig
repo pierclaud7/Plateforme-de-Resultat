@@ -1,42 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Etudiant index{% endblock %}
+{% block title %}Liste des Étudiants{% endblock %}
 
 {% block body %}
-    <h1>Etudiant index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Moyenne</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for etudiant in etudiants %}
-            <tr>
-                <td>{{ etudiant.id }}</td>
-                <td>{{ etudiant.nom }}</td>
-                <td>{{ etudiant.prenom }}</td>
-                <td>{{ etudiant.moyenne }}</td>
-                <td>
-                    <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}">show</a>
-                    <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_etudiant_new') }}">Create new</a>
-    <br><br> <a href="{{ path('app_home') }}" style="background-color: #ddd; padding: 10px; text-decoration: none; border-radius: 5px; color: black;">
-        Accueil
-    </a>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12"> {# Largeur max pour le tableau étudiant #}
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h2 class="h4 mb-0"><i class="fas fa-users"></i> Liste des Étudiants</h2>
+                    <a href="{{ path('app_etudiant_new') }}" class="btn btn-light text-primary fw-bold btn-sm">
+                        <i class="fas fa-user-plus"></i> Inscrire
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="py-3 ps-3">Nom Prénom</th>
+                                    <th class="py-3">Session</th>
+                                    <th class="py-3">Moyenne</th>
+                                    <th class="py-3">Résultat</th>
+                                    <th class="py-3 text-end pe-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for etudiant in etudiants %}
+                                <tr>
+                                    <td class="ps-3 fw-bold">{{ etudiant.nom|upper }} {{ etudiant.prenom }}</td>
+                                    <td>
+                                        {% if etudiant.session %}
+                                            <span class="badge bg-light text-dark border">
+                                                {{ etudiant.session.diplome.intitule }} ({{ etudiant.session.annee }})
+                                            </span>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if etudiant.moyenne is not null %}
+                                            <span class="fw-bold {{ etudiant.moyenne >= 10 ? 'text-success' : 'text-danger' }}">
+                                                {{ etudiant.moyenne }}/20
+                                            </span>
+                                        {% else %}
+                                            <span class="text-muted small">Non noté</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if etudiant.estAdmis %}
+                                            <span class="badge bg-success">ADMIS</span>
+                                        {% elseif etudiant.moyenne is not null %}
+                                            <span class="badge bg-danger">REFUSÉ</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">EN ATTENTE</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end pe-3">
+                                        <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}" class="btn btn-sm btn-outline-secondary me-1">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center py-4 text-muted">
+                                        <i class="fas fa-user-graduate fa-2x mb-3"></i><br>Aucun étudiant inscrit.
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
