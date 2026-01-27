@@ -1,6 +1,6 @@
-<form method="post" action="{{ path('app_diplome_delete', {'id': diplome.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce diplôme ?');">
-
+<form method="post" action="{{ path('app_diplome_delete', {'id': diplome.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce diplôme ?');" class="d-inline">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ diplome.id) }}">
-
-    <button class="btn">Supprimer</button>
+    <button class="btn btn-danger btn-sm shadow-sm">
+        <i class="fas fa-trash-alt"></i> Supprimer
+    </button>
 </form>
