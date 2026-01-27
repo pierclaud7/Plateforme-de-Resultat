@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Diplome{% endblock %}
+{% block title %}Détails du Diplôme{% endblock %}
 
 {% block body %}
-    <h1>Diplome</h1>
+    <h1>Détails du Diplôme</h1>
 
     <table class="table">
         <tbody>
@@ -12,15 +12,25 @@
                 <td>{{ diplome.id }}</td>
             </tr>
             <tr>
-                <th>Intitule</th>
+                <th>Intitulé</th>
                 <td>{{ diplome.intitule }}</td>
+            </tr>
+            <tr>
+                <th>Filière</th>
+                <td>
+                    {{ diplome.filiere ? diplome.filiere.nom : 'Non défini' }}
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_diplome_index') }}">back to list</a>
+    <br>
 
-    <a href="{{ path('app_diplome_edit', {'id': diplome.id}) }}">edit</a>
+    <a href="{{ path('app_diplome_index') }}">Retour à la liste</a>
+
+    <a href="{{ path('app_diplome_edit', {'id': diplome.id}) }}" style="margin-left: 15px;">Modifier</a>
+
+    <br><br>
 
     {{ include('diplome/_delete_form.html.twig') }}
 {% endblock %}
