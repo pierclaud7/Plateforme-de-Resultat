@@ -1,4 +1,32 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    <div class="mb-3">
+        {{ form_label(form.annee, 'Année de session', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+        {{ form_widget(form.annee, {'attr': {'class': 'form-control', 'placeholder': 'Ex: 2024'}}) }}
+        {{ form_errors(form.annee) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.diplome, 'Diplôme concerné', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+        {{ form_widget(form.diplome, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.diplome) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.statut, 'Statut actuel', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+        {{ form_widget(form.statut, {'attr': {'class': 'form-select'}}) }}
+        <div class="form-text text-muted">Brouillon (préparation), Validé (notes closes) ou Publié.</div>
+        {{ form_errors(form.statut) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.tauxReussite, 'Taux de réussite (%)', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+        {{ form_widget(form.tauxReussite, {'attr': {'class': 'form-control', 'placeholder': 'Calculé automatiquement ou manuel'}}) }}
+        {{ form_errors(form.tauxReussite) }}
+    </div>
+
+    <button class="btn btn-primary w-100 mt-3 shadow-sm">
+        <i class="fas fa-save"></i> {{ button_label|default('Enregistrer') }}
+    </button>
+
 {{ form_end(form) }}
