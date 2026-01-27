@@ -3,47 +3,62 @@
 {% block title %}Liste des Diplômes{% endblock %}
 
 {% block body %}
-    <h1>Liste des Diplômes</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow border-0">
+                {# En-tête bleu avec le bouton "Nouveau" à droite #}
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h2 class="h4 mb-0"><i class="fas fa-graduation-cap"></i> Liste des Diplômes</h2>
+                    <a href="{{ path('app_diplome_new') }}" class="btn btn-light text-primary fw-bold btn-sm">
+                        <i class="fas fa-plus-circle"></i> Nouveau
+                    </a>
+                </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Intitulé du diplôme</th>
-                <th>Filière associée</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for diplome in diplomes %}
-                <tr>
-                    <td>{{ diplome.id }}</td>
-                    <td>{{ diplome.intitule }}</td>
-
-                    <td>
-                        {{ diplome.filiere ? diplome.filiere.nom : 'Non défini' }}
-                    </td>
-
-                    <td>
-                        <a href="{{ path('app_diplome_show', {'id': diplome.id}) }}">Voir</a>
-                        <a href="{{ path('app_diplome_edit', {'id': diplome.id}) }}">Modifier</a>
-                    </td>
-                </tr>
-
-            {% else %}
-                <tr>
-                    <td colspan="4">Aucun diplôme enregistré</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_diplome_new') }}">Créer un nouveau diplôme</a>
-
-    <br><br>
-
-    <a href="{{ path('app_home') }}" style="background-color: #ddd; padding: 10px; text-decoration: none; border-radius: 5px; color: black;">
-        Accueil
-    </a>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="py-3 ps-3">ID</th>
+                                    <th class="py-3">Intitulé</th>
+                                    <th class="py-3">Filière</th>
+                                    <th class="py-3 text-end pe-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for diplome in diplomes %}
+                                <tr>
+                                    <td class="ps-3 fw-bold text-muted">#{{ diplome.id }}</td>
+                                    <td class="fw-bold">{{ diplome.intitule }}</td>
+                                    <td>
+                                        <span class="badge bg-info text-dark">
+                                            {{ diplome.filiere ? diplome.filiere.nom : 'Aucune' }}
+                                        </span>
+                                    </td>
+                                    <td class="text-end pe-3">
+                                        <a href="{{ path('app_diplome_show', {'id': diplome.id}) }}" class="btn btn-sm btn-outline-secondary me-1" title="Voir">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ path('app_diplome_edit', {'id': diplome.id}) }}" class="btn btn-sm btn-primary" title="Modifier">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-4 text-muted">
+                                        <i class="fas fa-info-circle fa-2x mb-3"></i><br>
+                                        Aucun diplôme trouvé. Commencez par en créer un !
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
