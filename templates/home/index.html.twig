@@ -1,36 +1,123 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - Plateforme Examens{% endblock %}
+{% block title %}Accueil - Vos Résultats{% endblock %}
 
 {% block body %}
-<div style="text-align: center; margin-top: 100px;">
-    <h1>Plateforme d'Examens</h1>
-    <p>Bienvenue dans l'interface d'administration.</p>
+<div class="container mt-4">
 
-    <hr>
+    {# 1. EN-TÊTE #}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1>
+            <p class="text-muted small mb-0">Vue d'ensemble de l'administration</p>
+        </div>
+        <div>
+            <span class="badge bg-light text-dark border px-3 py-2">
+                <i class="far fa-calendar-alt"></i> {{ "now"|date("d/m/Y") }}
+            </span>
+        </div>
+    </div>
 
-    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap;">
+    {# 2. STATISTIQUES #}
+    <div class="row mb-4">
+        {# Stat Sessions #}
+        <div class="col-md-3 mb-3">
+            <div class="card border-0 shadow-sm border-start border-4 border-warning h-100">
+                <div class="card-body">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sessions Actives</div>
+                    <div class="h5 mb-0 fw-bold text-gray-800">-</div>
+                </div>
+            </div>
+        </div>
+        {# Stat Étudiants #}
+        <div class="col-md-3 mb-3">
+            <div class="card border-0 shadow-sm border-start border-4 border-success h-100">
+                <div class="card-body">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Étudiants Inscrits</div>
+                    <div class="h5 mb-0 fw-bold text-gray-800">-</div>
+                </div>
+            </div>
+        </div>
+        {# Stat Diplômes #}
+        <div class="col-md-3 mb-3">
+            <div class="card border-0 shadow-sm border-start border-4 border-info h-100">
+                <div class="card-body">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Diplômes Gérés</div>
+                    <div class="h5 mb-0 fw-bold text-gray-800">-</div>
+                </div>
+            </div>
+        </div>
+        {# Stat Taux #}
+        <div class="col-md-3 mb-3">
+            <div class="card border-0 shadow-sm border-start border-4 border-primary h-100">
+                <div class="card-body">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Taux de Réussite</div>
+                    <div class="h5 mb-0 fw-bold text-gray-800">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px; width: 200px; background-color: #f9f9f9 ">
-            <h3>Filières</h3>
-            <a href="{{ path('app_filiere_index') }}" class="btn">Gérer</a>
+    {# 3. ZONE DE GESTION #}
+    <div class="row">
+
+        {# GAUCHE : ACTIONS PRINCIPALES #}
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header py-3 bg-white">
+                    <h6 class="m-0 fw-bold text-primary"><i class="fas fa-tasks me-2"></i> Gestion des Examens</h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-4">Accès rapide aux modules de gestion quotidienne.</p>
+
+                    <div class="d-grid gap-3">
+                        <a href="{{ path('app_session_index') }}" class="btn btn-outline-primary text-start p-3 d-flex align-items-center justify-content-between hover-bg">
+                            <span>
+                                <i class="fas fa-calendar-check fa-lg me-3 text-warning"></i>
+                                <strong>Sessions d'Examen</strong>
+                            </span>
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </a>
+
+                        <a href="{{ path('app_etudiant_index') }}" class="btn btn-outline-primary text-start p-3 d-flex align-items-center justify-content-between hover-bg">
+                            <span>
+                                <i class="fas fa-user-graduate fa-lg me-3 text-success"></i>
+                                <strong>Étudiants & Résultats</strong>
+                            </span>
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px; width: 200px; background-color: #f9f9f9 ">
-            <h3>Diplômes</h3>
-            <a href="{{ path('app_diplome_index') }}" class="btn">Gérer</a>
+        {# DROITE : CONFIGURATION #}
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header py-3 bg-white">
+                    <h6 class="m-0 fw-bold text-dark"><i class="fas fa-cogs me-2"></i> Configuration</h6>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="{{ path('app_filiere_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between px-0">
+                            <span><i class="fas fa-layer-group text-secondary me-2"></i> Filières</span>
+                            <i class="fas fa-arrow-right text-muted"></i>
+                        </a>
+                        <a href="{{ path('app_diplome_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between px-0">
+                            <span><i class="fas fa-graduation-cap text-info me-2"></i> Diplômes</span>
+                            <i class="fas fa-arrow-right text-muted"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px; width: 200px; background-color: #f9f9f9;">
-            <h3>Sessions</h3>
-            <a href="{{ path('app_session_index') }}" class="btn">Gérer</a>
-        </div>
-
-        <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px; width: 200px; background-color: #f9f9f9;">
-            <h3>Étudiants</h3>
-            <a href="{{ path('app_etudiant_index') }}" class="btn">Gérer</a>
-        </div>
-
     </div>
 </div>
+
+<style>
+    .hover-bg:hover {
+        transform: translateX(5px);
+        transition: all 0.2s;
+    }
+</style>
 {% endblock %}
