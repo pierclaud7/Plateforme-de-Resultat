@@ -1,4 +1,6 @@
-<form method="post" action="{{ path('app_session_delete', {'id': session.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('app_session_delete', {'id': session.id}) }}" onsubmit="return confirm('Attention : Supprimer une session supprimera aussi tous les résultats associés. Continuer ?');" class="d-inline">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ session.id) }}">
-    <button class="btn">Delete</button>
+    <button class="btn btn-danger btn-sm shadow-sm">
+        <i class="fas fa-trash-alt"></i> Supprimer
+    </button>
 </form>
