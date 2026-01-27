@@ -15,9 +15,15 @@ class DiplomeType extends AbstractType
     {
         $builder
             ->add('intitule')
+
             ->add('filiere', EntityType::class, [
                 'class' => Filiere::class,
-                'choice_label' => 'id',
+
+                'choice_label' => function (Filiere $filiere) {
+                    return $filiere->getId() . ' - ' . $filiere->getNom();
+                },
+
+                'placeholder' => 'Choisir une filière...',
             ])
         ;
     }
