@@ -1,11 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Etudiant{% endblock %}
+{% block title %}Nouvel Étudiant{% endblock %}
 
 {% block body %}
-    <h1>Create new Etudiant</h1>
-
-    {{ include('etudiant/_form.html.twig') }}
-
-    <a href="{{ path('app_etudiant_index') }}">back to list</a>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="h4 mb-0"><i class="fas fa-user-plus"></i> Inscrire un Étudiant</h2>
+                </div>
+                <div class="card-body bg-light">
+                    {{ include('etudiant/_form.html.twig') }}
+                </div>
+                <div class="card-footer text-center bg-white">
+                    <a href="{{ path('app_etudiant_index') }}" class="text-decoration-none text-muted">
+                        <i class="fas fa-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
