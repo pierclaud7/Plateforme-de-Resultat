@@ -1,34 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Session{% endblock %}
+{% block title %}Détails Session{% endblock %}
 
 {% block body %}
-    <h1>Session</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ session.id }}</td>
-            </tr>
-            <tr>
-                <th>Annee</th>
-                <td>{{ session.annee }}</td>
-            </tr>
-            <tr>
-                <th>Statut</th>
-                <td>{{ session.statut }}</td>
-            </tr>
-            <tr>
-                <th>TauxReussite</th>
-                <td>{{ session.tauxReussite }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_session_index') }}">back to list</a>
-
-    <a href="{{ path('app_session_edit', {'id': session.id}) }}">edit</a>
-
-    {{ include('session/_delete_form.html.twig') }}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center d-flex justify-content-between align-items-center px-4">
+                    <h2 class="h4 mb-0"><i class="fas fa-calendar-alt"></i> Détails Session</h2>
+                    <span class="badge bg-white text-primary">ID: {{ session.id }}</span>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th class="bg-light w-25">Année</th>
+                                <td class="fw-bold">{{ session.annee }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Diplôme</th>
+                                <td>{{ session.diplome.intitule }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Statut</th>
+                                <td>
+                                    {% if session.statut == 'Publié' %}
+                                        <span class="badge bg-success">Publié</span>
+                                    {% elseif session.statut == 'Validé' %}
+                                        <span class="badge bg-info text-dark">Validé</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Brouillon</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Taux de réussite</th>
+                                <td>{{ session.tauxReussite ? session.tauxReussite ~ '%' : 'Non calculé' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-center bg-white">
+                    <a href="{{ path('app_session_index') }}" class="btn btn-outline-secondary me-2">
+                        <i class="fas fa-list"></i> Liste
+                    </a>
+                    <a href="{{ path('app_session_edit', {'id': session.id}) }}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Modifier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
