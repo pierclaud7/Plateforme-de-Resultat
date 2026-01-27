@@ -1,13 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Session{% endblock %}
+{% block title %}Modifier Session{% endblock %}
 
 {% block body %}
-    <h1>Edit Session</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="h4 mb-0"><i class="fas fa-edit"></i> Modifier la Session</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
 
-    {{ include('session/_form.html.twig', {'button_label': 'Update'}) }}
+                        <div class="mb-3">
+                            {{ form_row(form.annee) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.diplome) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.statut) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.tauxReussite) }}
+                        </div>
 
-    <a href="{{ path('app_session_index') }}">back to list</a>
+                        <button class="btn btn-primary w-100 mt-3 shadow-sm">
+                            <i class="fas fa-check"></i> Mettre à jour
+                        </button>
 
-    {{ include('session/_delete_form.html.twig') }}
+                    {{ form_end(form) }}
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center bg-white">
+                    <a href="{{ path('app_session_index') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Retour
+                    </a>
+                    {# Inclusion du bouton supprimer #}
+                    {{ include('session/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
