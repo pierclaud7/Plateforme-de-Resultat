@@ -1,11 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Session{% endblock %}
+{% block title %}Nouvelle Session{% endblock %}
 
 {% block body %}
-    <h1>Create new Session</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="h4 mb-0"><i class="fas fa-calendar-plus"></i> Ouvrir une Session</h2>
+                </div>
+                <div class="card-body bg-light">
+                    {{ form_start(form) }}
 
-    {{ include('session/_form.html.twig') }}
+                        <div class="mb-3">
+                            {{ form_row(form.annee, {'attr': {'class': 'form-control', 'placeholder': 'Ex: 2025'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.diplome, {'attr': {'class': 'form-select'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.statut, {'attr': {'class': 'form-select'}}) }}
+                            <div class="form-text text-muted">Ex: Brouillon, Validé ou Publié</div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.tauxReussite, {'attr': {'class': 'form-control', 'placeholder': 'Optionnel'}}) }}
+                        </div>
 
-    <a href="{{ path('app_session_index') }}">back to list</a>
+                        <button class="btn btn-primary w-100 mt-3 shadow-sm">
+                            <i class="fas fa-save"></i> Enregistrer
+                        </button>
+
+                    {{ form_end(form) }}
+                </div>
+                <div class="card-footer text-center bg-white">
+                    <a href="{{ path('app_session_index') }}" class="text-decoration-none text-muted">
+                        <i class="fas fa-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
