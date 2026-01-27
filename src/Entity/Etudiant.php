@@ -36,6 +36,9 @@ class Etudiant
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $dateNaissance = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $estAdmis = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -126,6 +129,19 @@ class Etudiant
     public function setDateNaissance(?\DateTime $dateNaissance): static
     {
         $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    // --- AJOUT DES GETTERS/SETTERS POUR ESTADMIS ---
+    public function isEstAdmis(): ?bool
+    {
+        return $this->estAdmis;
+    }
+
+    public function setEstAdmis(?bool $estAdmis): static
+    {
+        $this->estAdmis = $estAdmis;
 
         return $this;
     }
