@@ -1,13 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer une nouvelle Filière{% endblock %}
+{% block title %}Nouvelle Filière{% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle Filière</h1>
-
-    {{ include('filiere/_form.html.twig') }}
-
-    <br>
-
-    <a href="{{ path('app_filiere_index') }}">Retour à la liste</a>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="h4 mb-0"><i class="fas fa-plus-circle"></i> Créer une Filière</h2>
+                </div>
+                <div class="card-body bg-light">
+                    {{ include('filiere/_form.html.twig') }}
+                </div>
+                <div class="card-footer text-center bg-white">
+                    <a href="{{ path('app_filiere_index') }}" class="text-decoration-none text-muted">
+                        <i class="fas fa-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
