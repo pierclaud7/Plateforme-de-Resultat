@@ -11,6 +11,11 @@ class FiliereType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $builder
+            ->add('nom', null, [
+                'label' => 'Nom de la filière'
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
