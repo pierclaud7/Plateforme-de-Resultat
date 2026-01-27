@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - Vos Résultats{% endblock %}
+{% block title %}Tableau de Bord - Vos Résultats{% endblock %}
 
 {% block body %}
 <div class="container mt-4">
@@ -18,14 +18,14 @@
         </div>
     </div>
 
-    {# 2. STATISTIQUES #}
+    {# 2. STATISTIQUES DYNAMIQUES #}
     <div class="row mb-4">
         {# Stat Sessions #}
         <div class="col-md-3 mb-3">
             <div class="card border-0 shadow-sm border-start border-4 border-warning h-100">
                 <div class="card-body">
                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sessions Actives</div>
-                    <div class="h5 mb-0 fw-bold text-gray-800">-</div>
+                    <div class="h5 mb-0 fw-bold text-gray-800">{{ nbSessions }}</div>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <div class="card border-0 shadow-sm border-start border-4 border-success h-100">
                 <div class="card-body">
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Étudiants Inscrits</div>
-                    <div class="h5 mb-0 fw-bold text-gray-800">-</div>
+                    <div class="h5 mb-0 fw-bold text-gray-800">{{ nbEtudiants }}</div>
                 </div>
             </div>
         </div>
@@ -43,16 +43,16 @@
             <div class="card border-0 shadow-sm border-start border-4 border-info h-100">
                 <div class="card-body">
                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Diplômes Gérés</div>
-                    <div class="h5 mb-0 fw-bold text-gray-800">-</div>
+                    <div class="h5 mb-0 fw-bold text-gray-800">{{ nbDiplomes }}</div>
                 </div>
             </div>
         </div>
-        {# Stat Taux #}
+        {# Stat Taux de Réussite #}
         <div class="col-md-3 mb-3">
             <div class="card border-0 shadow-sm border-start border-4 border-primary h-100">
                 <div class="card-body">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Taux de Réussite</div>
-                    <div class="h5 mb-0 fw-bold text-gray-800">-</div>
+                    <div class="h5 mb-0 fw-bold text-gray-800">{{ tauxReussite }}%</div>
                 </div>
             </div>
         </div>
@@ -115,9 +115,12 @@
 </div>
 
 <style>
+    .hover-bg {
+        transition: all 0.2s ease-in-out;
+    }
     .hover-bg:hover {
+        background-color: #f8f9fa;
         transform: translateX(5px);
-        transition: all 0.2s;
     }
 </style>
 {% endblock %}
