@@ -31,6 +31,9 @@ class Session
     #[ORM\OneToMany(targetEntity: Etudiant::class, mappedBy: 'session')]
     private Collection $etudiants;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $tauxReussite = null;
+
     public function __construct()
     {
         $this->etudiants = new ArrayCollection();
@@ -110,5 +113,17 @@ class Session
     public function __toString(): string
     {
         return (string)$this->annee;
+    }
+
+    public function getTauxReussite(): ?float
+    {
+        return $this->tauxReussite;
+    }
+
+    public function setTauxReussite(?float $tauxReussite): static
+    {
+        $this->tauxReussite = $tauxReussite;
+
+        return $this;
     }
 }
