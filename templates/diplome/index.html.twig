@@ -1,38 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Diplome index{% endblock %}
+{% block title %}Liste des Diplômes{% endblock %}
 
 {% block body %}
-    <h1>Diplome index</h1>
+    <h1>Liste des Diplômes</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Intitule</th>
-                <th>actions</th>
+                <th>Intitulé du diplôme</th>
+                <th>Filière associée</th>
+                <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
-        {% for diplome in diplomes %}
-            <tr>
-                <td>{{ diplome.id }}</td>
-                <td>{{ diplome.intitule }}</td>
-                <td>
-                    <a href="{{ path('app_diplome_show', {'id': diplome.id}) }}">show</a>
-                    <a href="{{ path('app_diplome_edit', {'id': diplome.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for diplome in diplomes %}
+                <tr>
+                    <td>{{ diplome.id }}</td>
+                    <td>{{ diplome.intitule }}</td>
+
+                    <td>
+                        {{ diplome.filiere ? diplome.filiere.nom : 'Non défini' }}
+                    </td>
+
+                    <td>
+                        <a href="{{ path('app_diplome_show', {'id': diplome.id}) }}">Voir</a>
+                        <a href="{{ path('app_diplome_edit', {'id': diplome.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun diplôme enregistré</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_diplome_new') }}">Create new</a>
-    <br><br> <a href="{{ path('app_home') }}" style="background-color: #ddd; padding: 10px; text-decoration: none; border-radius: 5px; color: black;">
+    <a href="{{ path('app_diplome_new') }}">Créer un nouveau diplôme</a>
+
+    <br><br>
+
+    <a href="{{ path('app_home') }}" style="background-color: #ddd; padding: 10px; text-decoration: none; border-radius: 5px; color: black;">
         Accueil
     </a>
 {% endblock %}
