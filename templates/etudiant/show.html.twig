@@ -8,23 +8,34 @@
         <div class="col-md-8">
             <div class="card shadow border-0">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center px-4">
-                    <h2 class="h4 mb-0"><i class="fas fa-user-graduate"></i> Fiche Étudiant</h2>
+                    <h2 class="h4 mb-0"><i class="fas fa-user-graduate me-2"></i> Fiche Étudiant</h2>
                     <span class="badge bg-white text-primary">ID: {{ etudiant.id }}</span>
                 </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
+
+                <div class="card-body p-0">
+                    <table class="table table-bordered mb-0">
                         <tbody>
                             <tr>
-                                <th class="bg-light w-25">Nom</th>
-                                <td class="fw-bold">{{ etudiant.nom|upper }}</td>
+                                <th class="bg-light w-30 px-4 py-3">Nom</th>
+                                <td class="fw-bold px-4 py-3">{{ etudiant.nom|upper }}</td>
                             </tr>
                             <tr>
-                                <th class="bg-light">Prénom</th>
-                                <td>{{ etudiant.prenom }}</td>
+                                <th class="bg-light px-4 py-3">Prénom</th>
+                                <td class="px-4 py-3">{{ etudiant.prenom }}</td>
                             </tr>
                             <tr>
-                                <th class="bg-light">Session</th>
-                                <td>
+                                <th class="bg-light px-4 py-3">Date de naissance</th>
+                                <td class="px-4 py-3">
+                                    {{ etudiant.dateNaissance ? etudiant.dateNaissance|date('d/m/Y') : 'Non renseignée' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light px-4 py-3">Adresse Email</th>
+                                <td class="px-4 py-3 text-muted">{{ etudiant.email }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light px-4 py-3">Session</th>
+                                <td class="px-4 py-3">
                                     {% if etudiant.session %}
                                         {{ etudiant.session.diplome.intitule }} ({{ etudiant.session.annee }})
                                     {% else %}
@@ -33,28 +44,35 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="bg-light">Moyenne</th>
-                                <td class="fw-bold fs-5">{{ etudiant.moyenne ? etudiant.moyenne ~ '/20' : '-' }}</td>
+                                <th class="bg-light px-4 py-3">Moyenne</th>
+                                <td class="fw-bold fs-5 px-4 py-3">
+                                    {{ etudiant.moyenne ? etudiant.moyenne ~ '/20' : '-' }}
+                                </td>
                             </tr>
                             <tr>
-                                <th class="bg-light">Décision</th>
-                                <td>
+                                <th class="bg-light px-4 py-3">Décision</th>
+                                <td class="px-4 py-3">
                                     {% if etudiant.estAdmis %}
-                                        <span class="badge bg-success fs-6">ADMIS</span>
+                                        <span class="badge bg-success fs-6 px-3 py-2">ADMIS</span>
+                                    {% elseif etudiant.moyenne >= 8 %}
+                                        {# Si pas coché ADMIS mais moyenne >= 8 #}
+                                        <span class="badge bg-warning text-dark fs-6 px-3 py-2">RATTRAPAGE</span>
                                     {% else %}
-                                        <span class="badge bg-danger fs-6">REFUSÉ / EN ATTENTE</span>
+                                        {# En dessous de 8 #}
+                                        <span class="badge bg-danger fs-6 px-3 py-2">REFUSÉ</span>
                                     {% endif %}
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer text-center bg-white">
-                    <a href="{{ path('app_etudiant_index') }}" class="btn btn-outline-secondary me-2">
-                        <i class="fas fa-list"></i> Liste
+
+                <div class="card-footer text-center bg-white py-3">
+                    <a href="{{ path('app_etudiant_index') }}" class="btn btn-outline-secondary me-2 px-4">
+                        <i class="fas fa-list me-1"></i> Liste
                     </a>
-                    <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" class="btn btn-primary">
-                        <i class="fas fa-edit"></i> Modifier
+                    <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" class="btn btn-primary px-4">
+                        <i class="fas fa-edit me-1"></i> Modifier
                     </a>
                 </div>
             </div>
