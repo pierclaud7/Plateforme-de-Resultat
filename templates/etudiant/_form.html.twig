@@ -1,39 +1,54 @@
 {{ form_start(form) }}
+
     <div class="row">
         <div class="col-md-6 mb-3">
             {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Ex: TYSON'}}) }}
             {{ form_errors(form.nom) }}
         </div>
         <div class="col-md-6 mb-3">
             {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-            {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Ex: Mike'}}) }}
             {{ form_errors(form.prenom) }}
         </div>
     </div>
 
     <div class="mb-3">
-        {{ form_label(form.session, 'Session d\'examen', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-        {{ form_widget(form.session, {'attr': {'class': 'form-select'}}) }}
-        {{ form_errors(form.session) }}
+        {{ form_label(form.email, 'Adresse Email', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'mike.tyson@exemple.com'}}) }}
+        {{ form_errors(form.email) }}
     </div>
-
-    <hr>
 
     <div class="row">
         <div class="col-md-6 mb-3">
+            {{ form_label(form.dateNaissance, 'Date de naissance', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+            {{ form_widget(form.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.dateNaissance) }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.session, 'Session d\'examen', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+            {{ form_widget(form.session, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.session) }}
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-3">
             {{ form_label(form.moyenne, 'Moyenne (/20)', {'label_attr': {'class': 'form-label fw-bold'}}) }}
             {{ form_widget(form.moyenne, {'attr': {'class': 'form-control', 'placeholder': 'Ex: 14.5'}}) }}
+            {{ form_errors(form.moyenne) }}
         </div>
-        <div class="col-md-6 mb-3 d-flex align-items-center">
-            <div class="form-check mt-4">
-                {{ form_widget(form.estAdmis, {'attr': {'class': 'form-check-input'}}) }}
-                {{ form_label(form.estAdmis, 'Déclarer ADMIS ?', {'label_attr': {'class': 'form-check-label fw-bold text-success'}}) }}
+        <div class="col-md-6 mb-3 mt-4">
+            <div class="form-check p-2 border rounded bg-light">
+                {{ form_widget(form.estAdmis, {'attr': {'class': 'form-check-input ms-1'}}) }}
+                {{ form_label(form.estAdmis, 'Déclarer ADMIS ?', {'label_attr': {'class': 'form-check-label fw-bold text-success ms-2'}}) }}
             </div>
         </div>
     </div>
 
-    <button class="btn btn-primary w-100 mt-3 shadow-sm">
-        <i class="fas fa-save"></i> {{ button_label|default('Enregistrer') }}
+    <button class="btn btn-primary w-100 mt-4 shadow-sm py-2">
+        <i class="fas fa-save me-2"></i> {{ button_label|default('Enregistrer les modifications') }}
     </button>
 {{ form_end(form) }}
