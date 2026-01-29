@@ -5,7 +5,7 @@ security:
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
+        # utilisé pour recharger l'utilisateur depuis la session
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -13,31 +13,40 @@ security:
 
     firewalls:
         dev:
-            # Ensure dev tools and static assets are always allowed
+            # On laisse les outils de dev (profiler, css, images) accessibles sans sécurité
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\AppAuthenticator
 
-            # Activate different ways to authenticate:
-            # https://symfony.com/doc/current/security.html#the-firewall
+            logout:
+                path: app_logout
+                # On redirige vers l'accueil après la déconnexion
+                target: app_home
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
+                # Par défaut, activé par une checkbox dans le formulaire de login
+                # always_remember_me: true
 
-    # Note: Only the *first* matching rule is applied
+    # Contrôle d'accès : définit qui peut voir quoi
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # 1. On autorise l'accès PUBLIC à la page de connexion
+        - { path: ^/login, roles: PUBLIC_ACCESS }
 
+        # 2. TOUT le reste du site (^) nécessite d'être connecté (ROLE_USER)
+        - { path: ^/, roles: ROLE_USER }
+
+# Configuration spécifique pour les tests
 when@test:
     security:
         password_hashers:
-            # Password hashers are resource-intensive by design to ensure security.
-            # In tests, it's safe to reduce their cost to improve performance.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
                 algorithm: auto
-                cost: 4 # Lowest possible value for bcrypt
-                time_cost: 3 # Lowest possible value for argon
-                memory_cost: 10 # Lowest possible value for argon
+                cost: 4 # Valeur minimale pour la performance des tests
+                time_cost: 3
+                memory_cost: 10
