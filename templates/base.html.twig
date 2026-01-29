@@ -34,20 +34,48 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top mb-4">
             <div class="container">
+                {# Logo à gauche #}
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ path('app_home') }}">
                     <i class="fas fa-graduation-cap me-2"></i> Vos Résultats
                 </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto fw-bold">
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Accueil</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_filiere_index') }}">Filières</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_diplome_index') }}">Diplômes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_session_index') }}">Sessions</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_etudiant_index') }}">Étudiants</a></li>
+                    {# Liens centrés #}
+                    <ul class="navbar-nav mx-auto text-center fw-bold">
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_home') }}">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_filiere_index') }}">Filières</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_diplome_index') }}">Diplômes</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_session_index') }}">Sessions</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_etudiant_index') }}">Étudiants</a></li>
                     </ul>
+
+                    {# BLOC CONNEXION / DÉCONNEXION À DROITE #}
+                    <div class="navbar-nav text-center">
+                        {% if app.user %}
+                            {# Menu utilisateur si connecté #}
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle me-1"></i> {{ app.user.email }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
+                                    <li>
+                                        <a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            {# Bouton connexion si déconnecté #}
+                            <a href="{{ path('app_login') }}" class="btn btn-light btn-sm fw-bold text-primary px-3 shadow-sm">
+                                <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </nav>
@@ -55,7 +83,7 @@
         <div class="container">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ label }} alert-dismissible fade show shadow-sm border-0" role="alert">
+                    <div class="alert alert-{{ label == 'danger' ? 'danger' : 'success' }} alert-dismissible fade show shadow-sm border-0" role="alert">
                         {% if label == 'success' %}<i class="fas fa-check-circle me-2"></i>{% endif %}
                         {% if label == 'danger' %}<i class="fas fa-exclamation-circle me-2"></i>{% endif %}
                         {{ message }}
